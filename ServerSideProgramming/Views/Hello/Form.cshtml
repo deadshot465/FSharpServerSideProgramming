@@ -11,6 +11,7 @@
         Form
     </h1>
     <p class="h4 mb-4">@ViewData["message"]</p>
+    <p class="h3 text-danger">@ViewData["timeout"]</p>
     <form method="post" asp-controller="Hello" asp-action="Form">
         <div class="form-group">
             <label asp-for="@id" class="h5">ID</label>

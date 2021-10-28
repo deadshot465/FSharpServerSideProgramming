@@ -16,6 +16,10 @@ type Startup private () =
         // Add framework services.
         services.AddControllersWithViews().AddRazorRuntimeCompilation() |> ignore
         services.AddRazorPages() |> ignore
+        services.AddSession(fun opt ->
+            opt.Cookie.Name <- "Session"
+            opt.IdleTimeout <- System.TimeSpan.FromSeconds(30.0)
+            opt.Cookie.IsEssential <- true) |> ignore
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     member this.Configure(app: IApplicationBuilder, env: IWebHostEnvironment) =
@@ -29,7 +33,7 @@ type Startup private () =
 
         app.UseHttpsRedirection() |> ignore
         app.UseStaticFiles() |> ignore
-
+        app.UseSession() |> ignore
         app.UseRouting() |> ignore
 
         app.UseAuthorization() |> ignore
